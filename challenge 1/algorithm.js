@@ -7,6 +7,7 @@ function atomCount(formula) {
   //this stack is to save every number
   var stack = [];
   var current;
+  // dos stores lowercase letters
   var dos, value, prev;
 
   //Iterates trough the input
@@ -30,6 +31,7 @@ function atomCount(formula) {
     }
     //Every time a parenthesis is closed extract from the stack the last value
     else if (current == "(") {
+      // remove the number from the stack
       stack.pop();
     }
 
@@ -37,7 +39,9 @@ function atomCount(formula) {
     else if (/[A-Z]/.test(current)) {
       //If you have a lowwercase saved concatenate them
       if (dos) {
+        // concatinate the current letter (Uppercase) to the lowercase letter
         current = current + dos;
+        // remove the lowercase letter
         dos = "";
       }
       //Multiply every value on the stack to get the value of this element
@@ -46,6 +50,8 @@ function atomCount(formula) {
       }
       //Operations to create the map
       if (!letters[current]) {
+        /*update the letters object with the current letter as a key 
+        and the current value as value */
         letters[current] = value;
       } else {
         letters[current] += value;
